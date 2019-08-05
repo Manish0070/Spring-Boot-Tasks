@@ -3,10 +3,11 @@ package com.stackroute.trackservice.service;
 import com.stackroute.trackservice.domain.Track;
 import com.stackroute.trackservice.exception.TrackAlreadyExistException;
 import com.stackroute.trackservice.exception.TrackNotFoundException;
+import org.springframework.context.annotation.Profile;
 
 import java.util.List;
 import java.util.Optional;
-
+@Profile("prod")
 public class TrackDummyServiceImpl implements TrackService {
 
     public TrackDummyServiceImpl() {
