@@ -5,9 +5,11 @@ import com.stackroute.trackservice.exception.TrackAlreadyExistException;
 import com.stackroute.trackservice.exception.TrackNotFoundException;
 import com.stackroute.trackservice.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.Optional;
 @Service
 //@Primary
 //@Profile("dev")
+@PropertySource("classpath:application.properties")
 
 public class TrackServiceImpl implements TrackService {
     private TrackRepository trackRepository;
@@ -36,7 +39,7 @@ public class TrackServiceImpl implements TrackService {
         }
         return saveduser;
     }
-
+    @Profile("dev")
     @Override
     public Optional<Track> getById(int id) throws TrackNotFoundException{
          if(!trackRepository.findById(id).isPresent()){
@@ -74,6 +77,7 @@ public class TrackServiceImpl implements TrackService {
         update.setComments(track.getComments());
         return trackRepository.save(track);
     }
+    @Profile("prod")
     @Override
     public Track getTrackName(String name) throws TrackNotFoundException{
         Track getname=trackRepository.getTrackByName(name);
