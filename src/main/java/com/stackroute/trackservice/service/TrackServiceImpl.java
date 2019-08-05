@@ -80,7 +80,7 @@ public class TrackServiceImpl implements TrackService {
     @Profile("prod")
     @Override
     public Track getTrackName(String name) throws TrackNotFoundException{
-        Track getname=trackRepository.getTrackByName(name);
+        Track getname=trackRepository.findByName(name);
         if(getname==null){
             throw  new TrackNotFoundException("Name not found Exception");
         }
