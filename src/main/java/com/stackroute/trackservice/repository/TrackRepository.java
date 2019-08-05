@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrackRepository extends JpaRepository<Track, Integer> {
-    @Query("select t from Track t where t.name = ?1")
+    @Query(value = "select t from Track t where t.name = ?1",nativeQuery = true)
     Track getTrackByName(String name);
 }
