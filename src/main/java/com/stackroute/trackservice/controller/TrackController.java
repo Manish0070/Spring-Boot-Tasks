@@ -60,7 +60,7 @@ public class TrackController {
     public ResponseEntity<?> trackdelById(@PathVariable int id) throws TrackNotFoundException {
         ResponseEntity responseEntity;
 
-        trackService.trackdelById(id);
+        trackService.deleteTrackById(id);
         responseEntity = new ResponseEntity("deleted sucessfully", HttpStatus.OK);
 
         return responseEntity;

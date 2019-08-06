@@ -59,7 +59,7 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    public Optional<Track> trackdelById(int id) throws TrackNotFoundException{
+    public Optional<Track> deleteTrackById(int id) throws TrackNotFoundException{
         Optional<Track> delete = trackRepository.findById(id);
         if(!delete.isPresent()){
             throw new TrackNotFoundException("No Tracks To Delete");
@@ -77,7 +77,7 @@ public class TrackServiceImpl implements TrackService {
         update.setComments(track.getComments());
         return trackRepository.save(track);
     }
-    @Profile("prod")
+    //@Profile("prod")
     @Override
     public Track getTrackName(String name) throws TrackNotFoundException{
         Track getname=trackRepository.findByName(name);
