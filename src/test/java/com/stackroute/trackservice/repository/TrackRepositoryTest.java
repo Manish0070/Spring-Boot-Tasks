@@ -73,7 +73,7 @@ public class TrackRepositoryTest {
     public void testToGetAllTheTracks() {
         Track t1 = new Track(2, "soul", "soft metallic");
         Track t2 = new Track(3, "Lambhorgini", "soft");
-        Track t3 = new Track(4, "Dhimmak Karaab", "hiphop");
+        Track t3 = new Track(4, "Dhimmak Karaab", "Mass");
         trackRepository.save(t1);
         trackRepository.save(t2);
         trackRepository.save(t3);
