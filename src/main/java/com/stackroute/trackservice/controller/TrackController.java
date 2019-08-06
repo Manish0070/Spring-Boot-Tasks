@@ -11,46 +11,43 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/v1/")
+@RequestMapping(value = "/api/v1/") //Maps to Controller when user requests for particular Methods.
 public class TrackController {
     private TrackService trackService;
 
-
+    //dependency injection of TrackService Object
     @Autowired
     public TrackController(TrackService trackService) {
         this.trackService = trackService;
     }
 
-
-    @PostMapping("track")
+    //Mapped to the method saveTrack when requests for saveTrack.
+    @PostMapping("tracks")
     public ResponseEntity<?> setTrack(@RequestBody Track track) {
         Track savedUser = trackService.saveTrack(track);
-        System.out.println(savedUser);
-        return new ResponseEntity<>(savedUser, HttpStatus.OK);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
-
-    @GetMapping("track/{id}")
-    public ResponseEntity<?> getById(@PathVariable int id) {
-        Track retreive = trackService.getById(id);
-        System.out.println(retreive);
+    //Mapped to the method getById when requests for getTrackById
+    @GetMapping("tracks/{id}")
+    public ResponseEntity<?> getTrackById(@PathVariable int id) {
+        Track retreive = trackService.getTrackById(id);
         return new ResponseEntity<>(retreive, HttpStatus.OK);
 
     }
-
-    @GetMapping("track")
+    //Mapped to the method getAllTracks when requests for getAllTracks.
+    @GetMapping("tracks")
     public ResponseEntity<?> getAllTracks() {
         List<Track> getAllTrackList = trackService.getAllTracks();
-        System.out.println(getAllTrackList);
         return new ResponseEntity<>(getAllTrackList, HttpStatus.CREATED);
     }
-
-    @DeleteMapping("track/{id}")
-    public ResponseEntity<?> trackdelById(@PathVariable int id) {
+    //Mapped to the method deleteTrackById when requests for deleteTrackById
+    @DeleteMapping("tracks/{id}")
+    public ResponseEntity<?> deleteTrackById(@PathVariable int id) {
         Optional<Track> deleted = trackService.trackdelById(id);
         return new ResponseEntity<>(deleted, HttpStatus.OK);
     }
-
-    @PutMapping("track/{id}")
+    //Mapped to the method updateTrack when requests for updateTrack
+    @PutMapping("tracks/{id}")
     public ResponseEntity<?> updateTrack(@PathVariable int id,@RequestBody Track track){
         Track updatedTrack=trackService.updateTrack(id,track);
         return new ResponseEntity<>(updatedTrack, HttpStatus.OK);
