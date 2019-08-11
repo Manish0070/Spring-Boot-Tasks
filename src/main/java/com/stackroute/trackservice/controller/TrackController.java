@@ -17,25 +17,25 @@ import java.util.Optional;
 public class TrackController {
     private TrackService trackService;
 
-
+    //Autowiring TrackService object(Dependency Injection).
     @Autowired
     public TrackController(TrackService trackService) {
         this.trackService = trackService;
     }
 
-
-    @PostMapping("track")
-    public ResponseEntity<?> setTrack(@RequestBody Track track) throws TrackAlreadyExistException {
+    //User Requests Maps Here When they Tries to Save Tracks In DataBase Using Method(setTrack).
+    @PostMapping("tracks")
+    public ResponseEntity<?> setTrack(@RequestBody Track track) throws TrackAlreadyExistException,Exception {
         ResponseEntity responseEntity;
 
         trackService.saveTrack(track);
-        responseEntity = new ResponseEntity<String>("sucessfully created", HttpStatus.CREATED);
+        responseEntity = new ResponseEntity<String>("sucessfully created", HttpStatus.CREATED); //If Sucessfuly Saved Users Tracks Returns "Sucessfully Created".
 
         return responseEntity;
     }
-
-    @GetMapping("track/{id}")
-    public ResponseEntity<?> getById(@PathVariable int id) throws TrackNotFoundException {
+    //User Requests Maps Here When Users Retreving Tracks Using Track ID From DataBase Using Method(getById).
+    @GetMapping("tracks/{id}")
+    public ResponseEntity<?> getById(@PathVariable int id) throws TrackNotFoundException,Exception {
         ResponseEntity responseEntity;
 
         trackService.getById(id);
@@ -44,9 +44,9 @@ public class TrackController {
         return responseEntity;
 
     }
-
-    @GetMapping("track")
-    public ResponseEntity<?> getAllTracks() throws TrackNotFoundException {
+    //User Requests Maps Here When User Retreving All The Tracks from  DataBase using method (getAllTracks)
+    @GetMapping("tracks")
+    public ResponseEntity<?> getAllTracks() throws TrackNotFoundException,Exception {
         ResponseEntity responseEntity;
 
         trackService.getAllTracks();
@@ -55,9 +55,9 @@ public class TrackController {
 
         return responseEntity;
     }
-
-    @DeleteMapping("track/{id}")
-    public ResponseEntity<?> deleteTrackById(@PathVariable int id) throws TrackNotFoundException {
+    //User Requests Maps Here when User Requests To Delete A Particular Track Using Id.Method Invoked Is deleteTrackBtId.
+    @DeleteMapping("tracks/{id}")
+    public ResponseEntity<?> deleteTrackById(@PathVariable int id) throws TrackNotFoundException,Exception {
         ResponseEntity responseEntity;
 
         trackService.deleteTrackById(id);
@@ -65,15 +65,15 @@ public class TrackController {
 
         return responseEntity;
     }
-
-    @PutMapping("track/{id}")
-    public ResponseEntity<?> updateTrack(@PathVariable int id, @RequestBody Track track) throws TrackNotFoundException {
+    //User Requests Maps Here when User Requests To Update A Particular Track Using Id And track Object.Method Invoked Is updateTrack.
+    @PutMapping("tracks/{id}")
+    public ResponseEntity<?> updateTrack(@PathVariable int id, @RequestBody Track track) throws TrackNotFoundException,Exception {
         Track updatedTrack = trackService.updateTrack(id, track);
         return new ResponseEntity<>(updatedTrack, HttpStatus.OK);
     }
-
-    @GetMapping("tracke/{name}")
-    public ResponseEntity<?> getByName(@PathVariable String name) throws TrackNotFoundException {
+    //User Requests Maps Here when User Requests To Get Track By Name Using Name.Method Invoked Is getByName.
+    @GetMapping("tracks/{name}")
+    public ResponseEntity<?> getByName(@PathVariable String name) throws TrackNotFoundException,Exception {
         ResponseEntity responseEntity;
 
         trackService.getTrackName(name);

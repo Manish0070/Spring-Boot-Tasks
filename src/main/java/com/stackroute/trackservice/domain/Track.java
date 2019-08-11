@@ -11,8 +11,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Builder
 @ToString
+//User Track Class
 public class Track {
     @Id
+    //Properties
     private int id;
     private String name;
     private String comments;

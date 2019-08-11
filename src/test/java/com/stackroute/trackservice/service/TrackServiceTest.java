@@ -69,7 +69,7 @@ public class TrackServiceTest {
 
     }
     @Test
-    public void getByIdTestSucess() throws TrackNotFoundException {
+    public void givenInputTrackShouldReturnTestSucess() throws TrackNotFoundException {
         trackRepository.save(track);
         Track track2=new Track(102,"Krishna","Hello");
         when(trackRepository.existsById(102)).thenReturn(true);

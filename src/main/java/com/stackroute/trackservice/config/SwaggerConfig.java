@@ -1,4 +1,4 @@
-package com.stackroute.trackservice.configure;
+package com.stackroute.trackservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
