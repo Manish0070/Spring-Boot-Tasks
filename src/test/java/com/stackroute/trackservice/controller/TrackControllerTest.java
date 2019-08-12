@@ -87,6 +87,14 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
+    public void getTrackById() throws Exception{
+        when(trackService.getById(1)).thenReturn(null);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track/1")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andDo(MockMvcResultHandlers.print());
+    }
+    @Test
     public void getTrackIdFailure() throws Exception{
         when(trackService.getById(1)).thenThrow(TrackNotFoundException.class);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track/1")
@@ -138,12 +146,5 @@ public class TrackControllerTest {
             throw new RuntimeException(e);
         }
     }
-    @Test
-    public void getTrackById() throws Exception{
-        when(trackService.getById(1)).thenReturn(null);
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track/1")
-                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andDo(MockMvcResultHandlers.print());
-    }
+
 }

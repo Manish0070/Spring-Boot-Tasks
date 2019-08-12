@@ -38,7 +38,7 @@ public class TrackRepositoryTest {
     }
 
     @Test
-    public void findByName() {
+    public void givenInputNameShouldReturnNameIfExists() {
         trackRepository.save(track);
         Track fetchTrack = trackRepository.findByName(track.getName());
         assertEquals("John", fetchTrack.getName());
@@ -46,14 +46,14 @@ public class TrackRepositoryTest {
     }
 
     @Test
-    public void testTosaveTrack() {
+    public void givenInputTrackShouldReturnIdIFExists() {
         trackRepository.save(track);
         Track save = trackRepository.findById(track.getId()).get();
         assertEquals(101, save.getId());
     }
 
     @Test
-    public void testGetAllTrack() {
+    public void givenInputTracksShouldreturnAllTracks() {
         Track saveTrack1 = new Track(102, "Manish", "Hello Manish");
         Track saveTrack2 = new Track(103, "Krishna", "Hello Krishna");
         trackRepository.save(saveTrack1);
@@ -64,23 +64,6 @@ public class TrackRepositoryTest {
     }
 
     @Test
-    public void testToNotSaveAnyTracks() {
-        Track newTrack = new Track(12, "Beautiful", "Restful Evening");
-        trackRepository.save(newTrack);
-        assertNotSame(track, newTrack);
-    }
-    @Test
-    public void testToGetAllTheTracks() {
-        Track t1 = new Track(2, "soul", "soft metallic");
-        Track t2 = new Track(3, "Lambhorgini", "soft");
-        Track t3 = new Track(4, "Dhimmak Karaab", "Mass");
-        trackRepository.save(t1);
-        trackRepository.save(t2);
-        trackRepository.save(t3);
-        List<Track> trackList = trackRepository.findAll();
-        assertEquals("Dhimmak Karaab", trackList.get(2).getName());
-    }
-    @Test(expected = IndexOutOfBoundsException.class)
     public void testToGetAllTheTracksThrowsException() {
         Track t1 = new Track(2, "Melody", "soft metallic");
         Track t2 = new Track(3, "Pop", "soft rock");
@@ -92,7 +75,7 @@ public class TrackRepositoryTest {
         assertEquals("teardrop", trackList.get(5).getName());
     }
     @Test
-    public void testToGetTrackById() {
+    public void givenInputTrackShouldReturnIdIfExistsAndUpdatesThatTrack() {
         Track t1 = new Track();
         Track t2 = new Track(2, "soul", "soft metallic");
         Track t3 = new Track(3, "teardrop", "soft rock");
@@ -102,8 +85,8 @@ public class TrackRepositoryTest {
         Track t4 = trackRepository.findById(t1.getId()).get();
         assertEquals(t3, t4);
     }
-    @Test(expected = NoSuchElementException.class)
-    public void testToGetTrackByIdThrowsException() {
+    @Test
+    public void givenInputTrackAndSetIdThrowsTrackNotFoundException() {
         Track t1 = new Track();
         Track t2 = new Track(2, "soul", "soft metallic");
         Track t3 = new Track(3, "teardrop", "soft rock");
@@ -113,14 +96,14 @@ public class TrackRepositoryTest {
         trackRepository.findById(t1.getId()).get();
     }
     @Test
-    public void testToDeleteTrackByIdReturnsException() {
+    public void givenInputTrackShouldReturnNoTracksToDelete() {
         Track t1 = new Track(2, "Sahoo", "soft rock");
         trackRepository.save(t1);
         assertNotSame(false, trackRepository.existsById(t1.getId()));
         trackRepository.deleteById(t1.getId());
     }
     @Test
-    public void testToUpdateTrackFoundById() {
+    public void givenInputTrackShouldReturnUpdatedTrack() {
         Track t1 = new Track(2, "soul", "soft metallic");
         Track t2 = new Track(3, "teardrop", "soft rock");
         Track t3 = new Track(4, "dance", "hiphop");
@@ -131,14 +114,5 @@ public class TrackRepositoryTest {
         trackList.setName(t3.getName());
         assertEquals(trackList.getName(), t3.getName());
     }
-    @Test
-    public void testToUpdateChecksForNotNull() {
-        assertNotNull(trackRepository.existsById(track.getId()));
-    }
-    @Test
-    public void testToFindByNameChecksForNotEquality(){
-        trackRepository.save(track);
-        Track t1 = trackRepository.findByName(track.getName());
-        assertNotEquals("soul",t1.getName());
-    }
+
 }

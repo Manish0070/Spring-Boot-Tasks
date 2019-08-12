@@ -47,7 +47,7 @@ public class TrackServiceTest {
 
     }
     @Test
-    public void saveTrackTestSuccess() throws TrackAlreadyExistException {
+    public void givenInputTrackShouldReturnSavedTrackAndChecksBothAreEqual() throws TrackAlreadyExistException {
 
         when(trackRepository.save((Track) any())).thenReturn(track);
         Track savedUser = trackService.saveTrack(track);
@@ -57,7 +57,7 @@ public class TrackServiceTest {
 
     }
     @Test(expected = TrackAlreadyExistException.class)
-    public void saveUserTestFailure() throws TrackAlreadyExistException {
+    public void givenInputTrackShouldReturnTestFailure() throws TrackAlreadyExistException {
         when(trackRepository.save((Track) any())).thenReturn(null);
         Track savedUser = trackService.saveTrack(track);
         System.out.println("savedUser" + savedUser);
@@ -69,7 +69,7 @@ public class TrackServiceTest {
 
     }
     @Test
-    public void givenInputTrackShouldReturnTestSucess() throws TrackNotFoundException {
+    public void givenInputTrackShouldReturnTheSameTrackIfIdExists() throws TrackNotFoundException {
         trackRepository.save(track);
         Track track2=new Track(102,"Krishna","Hello");
         when(trackRepository.existsById(102)).thenReturn(true);
@@ -81,7 +81,7 @@ public class TrackServiceTest {
     }
 
     @Test(expected = TrackNotFoundException.class)
-    public void getByIdTestFailure() throws TrackNotFoundException {
+    public void givenInputTrack() throws TrackNotFoundException {
         when(trackRepository.save((Track) any())).thenReturn(null);
         Track saveId = trackService.getById(track.getId()).get();
         System.out.println("savedUser" + saveId);
@@ -94,7 +94,7 @@ public class TrackServiceTest {
     }
 
     @Test
-    public void getByNameTestSucess() throws TrackNotFoundException {
+    public void givenInputNameShouldReturnTheNameIfExistsAndChecksEquality() throws TrackNotFoundException {
        trackRepository.save(track);
        when(trackRepository.findByName("Krishna")).thenReturn(track);
         Track getName = trackService.getTrackName(track.getName());
@@ -104,7 +104,7 @@ public class TrackServiceTest {
         verify(trackRepository,times(1)).save(track);
     }
     @Test(expected = TrackNotFoundException.class)
-    public void getByNameTestFailure() throws TrackNotFoundException {
+    public void givenInputNameIfExistsReturnsNull() throws TrackNotFoundException {
         when(trackRepository.save((Track) any())).thenReturn(null);
         Track saveId = trackService.getTrackName(track.getName());
         System.out.println("savedUser" + saveId);
@@ -116,7 +116,7 @@ public class TrackServiceTest {
 
     }
     @Test
-    public void getAllTracks() throws Exception {
+    public void givenInputTrackShouldReturnAllTracks() throws Exception {
         trackRepository.save(track);
         when(trackRepository.findAll()).thenReturn(list);
         List<Track> music=trackService.getAllTracks();
@@ -124,7 +124,7 @@ public class TrackServiceTest {
     }
 
     @Test
-    public void deletedTrackByIdTestSuccess() throws TrackNotFoundException{
+    public void givenInputIdIfExistsDeletesTheTrack() throws TrackNotFoundException{
             trackRepository.save(track);
             when(trackRepository.existsById(track.getId())).thenReturn(true);
             when(trackRepository.findById(track.getId())).thenReturn(java.util.Optional.of(track));
@@ -132,7 +132,7 @@ public class TrackServiceTest {
             assertEquals(true,trackRepository.existsById(track.getId()));
     }
     @Test
-    public void updateTrackTestSuccess(){
+    public void givenInputTrackShouldReturnTheUpdatedTrack(){
         trackRepository.save(track);
         Track track1 = new Track();
         track1.setName("Better");
