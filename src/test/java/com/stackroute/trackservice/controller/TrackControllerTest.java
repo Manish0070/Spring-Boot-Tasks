@@ -60,7 +60,7 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
-    public void saveTrackFailure() throws Exception {
+    public void givenInputTrackShouldReturnTrackAlreadyExistException() throws Exception {
         when(trackService.saveTrack((Track)any())).thenThrow(TrackAlreadyExistException.class);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/track")
                 .contentType(MediaType.APPLICATION_JSON).
@@ -69,7 +69,7 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
-    public void getAllTracks() throws Exception{
+    public void givenInputTracksShouldReturnAllTheTracks() throws Exception{
         when(trackService.getAllTracks()).thenReturn(list);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -78,7 +78,7 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
-    public void getAllTracksFailure() throws Exception{
+    public void givenInputTracksShouldReturnException() throws Exception{
         when(trackService.getAllTracks()).thenThrow(Exception.class);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track")
                 .contentType(MediaType.APPLICATION_JSON).
@@ -87,7 +87,7 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
-    public void getTrackById() throws Exception{
+    public void givenInputTrackShouldReturnTrackById() throws Exception{
         when(trackService.getById(1)).thenReturn(null);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track/1")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
@@ -95,7 +95,7 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
-    public void getTrackIdFailure() throws Exception{
+    public void givenInputTrackShouldReturnTrackByIdFailure() throws Exception{
         when(trackService.getById(1)).thenThrow(TrackNotFoundException.class);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track/1")
                 .contentType(MediaType.APPLICATION_JSON).
@@ -104,7 +104,7 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
-    public void deleteTrackSuccess() throws Exception
+    public void givenInputTrackShouldReturnTrackDeletedSuccessfully() throws Exception
     {
         when(trackService.deleteTrackById(track.getId())).thenReturn(null);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/track/1",track.getId())
@@ -113,7 +113,7 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
-    public void deleteTracksFailure() throws Exception{
+    public void givenInputTrackShouldReturnDeleteTracksFailure() throws Exception{
         when(trackService.deleteTrackById(1)).thenThrow(TrackNotFoundException.class);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/track/1")
                 .contentType(MediaType.APPLICATION_JSON).
@@ -122,7 +122,7 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
-    public void updateTrackSuccess() throws Exception
+    public void givenInputTrackShouldReturnTrackUpdatedSuccessfully() throws Exception
     {
         when(trackService.updateTrack(1,track)).thenReturn(track);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/track/1")
@@ -131,7 +131,7 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
-    public void UpdateTrackFailure() throws Exception{
+    public void givenInputTrackShouldReturnTrackupdateFailure() throws Exception{
         when(trackService.updateTrack(1,track)).thenThrow(TrackNotFoundException.class);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/track/1")
                 .contentType(MediaType.APPLICATION_JSON).
